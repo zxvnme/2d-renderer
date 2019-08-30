@@ -50,7 +50,7 @@ Graphics::Graphics(Window* window)
 void Graphics::draw_line(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color)
 {
 	this->set_vertex_topology(GL_LINES);
-    this->allocate_vertices(2);
+	this->allocate_vertices(2);
 
 	this->add_vertex(start, color, glm::vec2(0.0f));
 	this->add_vertex(end, color, glm::vec2(0.0f));
@@ -74,7 +74,7 @@ void Graphics::draw_rectangle(const glm::vec2& min, const glm::vec2& max, const 
 void Graphics::fill_triangle(const glm::vec2& point1, const glm::vec2& point2, const glm::vec2& point3, const glm::vec4& color)
 {
 	this->set_vertex_topology(GL_TRIANGLES);
-    this->allocate_vertices(3);
+	this->allocate_vertices(3);
 
 	this->add_vertex(point1, color, glm::vec2(0.0f, 0.0f));
 	this->add_vertex(point2, color, glm::vec2(0.0f, 1.0f));

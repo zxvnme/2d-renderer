@@ -38,7 +38,7 @@ void Shader::load_from_string(const std::string& vertex_shader_source, const std
 
 	glLinkProgram(this->program_id_);
 
-    int program_link_status, program_log_info_length;
+	int program_link_status, program_log_info_length;
 
 	glGetProgramiv(this->program_id_, GL_LINK_STATUS, &program_link_status);
 	glGetProgramiv(this->program_id_, GL_INFO_LOG_LENGTH, &program_log_info_length);
@@ -79,25 +79,25 @@ void Shader::load_from_file(const std::string &vertex_shader_file_name, const st
 
 Shader::Shader(const std::string_view shader_name)
 {
-    this->program_id_ = glCreateProgram();
-    this->vertex_shader_id_ = glCreateShader(GL_VERTEX_SHADER);
-    this->fragment_shader_id_ = glCreateShader(GL_FRAGMENT_SHADER);
+	this->program_id_ = glCreateProgram();
+	this->vertex_shader_id_ = glCreateShader(GL_VERTEX_SHADER);
+	this->fragment_shader_id_ = glCreateShader(GL_FRAGMENT_SHADER);
 
-    this->load_from_file(std::string(shader_name) + ".vs", std::string(shader_name) + ".fs");
+	this->load_from_file(std::string(shader_name) + ".vs", std::string(shader_name) + ".fs");
 }
 
 Shader::Shader(const std::string_view vertex_shader_source, const std::string_view fragment_shader_source)
 {
-    this->program_id_ = glCreateProgram();
-    this->vertex_shader_id_ = glCreateShader(GL_VERTEX_SHADER);
-    this->fragment_shader_id_ = glCreateShader(GL_FRAGMENT_SHADER);
+	this->program_id_ = glCreateProgram();
+	this->vertex_shader_id_ = glCreateShader(GL_VERTEX_SHADER);
+	this->fragment_shader_id_ = glCreateShader(GL_FRAGMENT_SHADER);
 
 	this->load_from_string(vertex_shader_source.data(), fragment_shader_source.data());
 }
 
 void Shader::bind() const
 {
-    glUseProgram(this->program_id_);
+	glUseProgram(this->program_id_);
 }
 
 void Shader::set(const std::string_view name, const float value)
@@ -162,16 +162,16 @@ void Shader::set(const std::string_view name, const glm::mat4 &value)
 
 int Shader::get_uniform_location(const std::string_view name)
 {
-    if (this->uniform_location_cache_.find(name.data()) == this->uniform_location_cache_.end())
+	if (this->uniform_location_cache_.find(name.data()) == this->uniform_location_cache_.end())
 	{
-        const auto uniform_location = glGetUniformLocation(this->program_id_, name.data());
+		const auto uniform_location = glGetUniformLocation(this->program_id_, name.data());
 
-        this->uniform_location_cache_.insert({ name.data(), uniform_location });
+		this->uniform_location_cache_.insert({ name.data(), uniform_location });
 
-        return uniform_location;
-    }
+		return uniform_location;
+	}
 
-    return this->uniform_location_cache_.at(name.data());
+	return this->uniform_location_cache_.at(name.data());
 }
 
 int Shader::get_attribute_location(const std::string_view name)

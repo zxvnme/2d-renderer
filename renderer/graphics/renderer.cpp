@@ -4,34 +4,34 @@
 // ReSharper disable once CppPossiblyUninitializedMember
 Renderer::Renderer(Shader* shader)
 {
-    this->shader_ = shader;
+	this->shader_ = shader;
 
-    glGenVertexArrays(1, &this->vertex_array_);
-    glBindVertexArray(this->vertex_array_);
+	glGenVertexArrays(1, &this->vertex_array_);
+	glBindVertexArray(this->vertex_array_);
 
-    glGenBuffers(1, &this->vertex_buffer_);
-    glBindBuffer(GL_ARRAY_BUFFER, this->vertex_buffer_);
+	glGenBuffers(1, &this->vertex_buffer_);
+	glBindBuffer(GL_ARRAY_BUFFER, this->vertex_buffer_);
 
-    glEnableVertexAttribArray(this->shader_->get_attribute_location("position"));
+	glEnableVertexAttribArray(this->shader_->get_attribute_location("position"));
 	glVertexAttribPointer(this->shader_->get_attribute_location("position"), 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), &static_cast<Vertex*>(nullptr)->position);
-    
-    glEnableVertexAttribArray(this->shader_->get_attribute_location("color"));
+
+	glEnableVertexAttribArray(this->shader_->get_attribute_location("color"));
 	glVertexAttribPointer(this->shader_->get_attribute_location("color"), 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), &static_cast<Vertex*>(nullptr)->color);
 
-    glEnableVertexAttribArray(this->shader_->get_attribute_location("texture_position"));
+	glEnableVertexAttribArray(this->shader_->get_attribute_location("texture_position"));
 	glVertexAttribPointer(this->shader_->get_attribute_location("texture_position"), 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), &static_cast<Vertex*>(nullptr)->texture_position);
 }
 
 void Renderer::manage_batches()
 {
-    if (this->batches_.empty())
+	if (this->batches_.empty())
 	{
 		this->batches_.emplace_back(Batch(this->shader_, this->texture_, this->vertex_topology_, 0));
 
 		return;
-    }
+	}
 
-    const auto last_batch = this->batches_.back();
+	const auto last_batch = this->batches_.back();
 
 	if (last_batch.vertex_topology != this->vertex_topology_ || last_batch.associated_shader != this->shader_ || last_batch.associated_texture != this->texture_)
 		this->batches_.emplace_back(Batch(this->shader_, this->texture_, this->vertex_topology_, 0));
@@ -54,10 +54,10 @@ void Renderer::add_vertices(Vertex* vertices, const int count)
 	this->data_changed_ = true;
 	this->batches_.back().vertex_count += count;
 
-    this->vertices_.reserve(count);
+	this->vertices_.reserve(count);
 
-    for (auto i = 0; i < count; i++)
-	    this->vertices_.push_back(vertices[i]);
+	for (auto i = 0; i < count; i++)
+		this->vertices_.push_back(vertices[i]);
 }
 
 void Renderer::add_vertex(const Vertex& vertex)
@@ -77,16 +77,16 @@ void Renderer::display()
 	glBindVertexArray(this->vertex_array_);
 	glBindBuffer(GL_ARRAY_BUFFER, this->vertex_buffer_);
 
-    if (this->data_changed_)
+	if (this->data_changed_)
 	{
-        glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * this->vertices_.size(), this->vertices_.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * this->vertices_.size(), this->vertices_.data(), GL_STATIC_DRAW);
 
-        this->data_changed_ = false;
-    }
+		this->data_changed_ = false;
+	}
 
-    auto offset = 0;
+	auto offset = 0;
 
-    for (const auto& batch : this->batches_)
+	for (const auto& batch : this->batches_)
 	{
 		if (batch.associated_shader)
 			batch.associated_shader->bind();
@@ -97,7 +97,7 @@ void Renderer::display()
 		glDrawArrays(GL_TRIANGLES, offset, batch.vertex_count);
 
 		offset += batch.vertex_count;
-    }
+	}
 }
 
 void Renderer::clear()

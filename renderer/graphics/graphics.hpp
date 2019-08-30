@@ -12,7 +12,7 @@ class Graphics : public Renderer
 	Window* window_;
 
 public:
-    explicit Graphics(Window* window);
+	explicit Graphics(Window* window);
 
 	void draw_line(const glm::vec2& start, const glm::vec2& end, const glm::vec4& color);
 	void draw_triangle(const glm::vec2& point1, const glm::vec2& point2, const glm::vec2& point3, const glm::vec4& color);

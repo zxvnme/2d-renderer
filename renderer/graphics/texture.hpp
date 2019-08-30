@@ -12,7 +12,7 @@ class Texture
 
 public:
 	Texture(int width, int height, uint8_t* data);
-    explicit Texture(std::string_view filename);
+	explicit Texture(std::string_view filename);
 
 	void bind() const;
 

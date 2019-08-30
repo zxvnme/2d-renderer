@@ -20,11 +20,11 @@ public:
 	void new_frame();
 	void finish_frame() const;
 
-    bool should_close() const;
+	bool should_close() const;
 
-    int get_width() const;
-    int get_height() const;
+	int get_width() const;
+	int get_height() const;
 
-    GLFWwindow* get_window_handle() const;
+	GLFWwindow* get_window_handle() const;
 
 };

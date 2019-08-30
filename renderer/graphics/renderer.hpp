@@ -14,14 +14,14 @@ struct Batch
 	int vertex_topology;
 	int vertex_count;
 
-    Batch(Shader* shader, Texture* texture, const int vertex_topology, const int vertex_count)
+	Batch(Shader* shader, Texture* texture, const int vertex_topology, const int vertex_count)
 		: associated_shader(shader)
-        , associated_texture(texture)
-        , vertex_topology(vertex_topology)
-        , vertex_count(vertex_count)
-    {
-        // Initialized using initializer list
-    }
+		, associated_texture(texture)
+		, vertex_topology(vertex_topology)
+		, vertex_count(vertex_count)
+	{
+		// Initialized using initializer list
+	}
 
 };
 
@@ -59,7 +59,7 @@ protected:
 	void manage_batches();
 
 public:
-    explicit Renderer(Shader* shader);
+	explicit Renderer(Shader* shader);
 
 	void set_vertex_topology(int vertex_topology);
 
